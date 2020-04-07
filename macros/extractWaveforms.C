@@ -44,7 +44,7 @@ auto extractWaveforms(const int event,
   UCorrelator::AnalysisConfig cfg;
 
   // I don't want any deconvolution
-  //cfg.response_option = UCorrelator::AnalysisConfig::ResponseA4;  //  The new A4 response.
+  cfg.response_option = UCorrelator::AnalysisConfig::ResponseNone;
 
   //  Set up Analyzer object with filtering.
   //  "true" is set so "analyzer" doesn't reset each time when drawing.
