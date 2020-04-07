@@ -15,7 +15,8 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 setup(
     name="anitacosmicrays",
     version=__version__,
-    description="A Python package to access reduced data products of cosmic ray events observed by ANITA.",
+    description=("A Python package to access reduced data products "
+                 "of cosmic ray events observed by ANITA."),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/rprechelt/anitacosmicrays",
@@ -30,13 +31,13 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    keywords=[""],
+    keywords=["anita", "cosmic rays", "physics", "radio"],
     packages=["anitacosmicrays"],
     python_requires=">=3.6*, <4",
-    install_requires=[],
+    install_requires=["numpy", "cachetools"],
     extras_require={
         "test": ["pytest", "black", "mypy",
-                 "coverage", "pytest-cov", "flake8"],
+                 "coverage", "pytest-cov"],
     },
     scripts=[],
     project_urls={},
