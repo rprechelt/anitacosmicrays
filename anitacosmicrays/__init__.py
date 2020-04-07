@@ -5,4 +5,4 @@ Impulsive Transient Antenna (ANITA).
 """
 __version__ = "0.0.1"
 
-from . import anita4
+from . import anita4  # noqa: F401
