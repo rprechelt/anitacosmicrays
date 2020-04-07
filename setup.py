@@ -37,7 +37,7 @@ setup(
     install_requires=["numpy", "cachetools"],
     extras_require={
         "test": ["pytest", "black", "mypy",
-                 "coverage", "pytest-cov"],
+                 "coverage", "pytest-cov", "flake8"],
     },
     scripts=[],
     project_urls={},
