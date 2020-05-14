@@ -72,3 +72,30 @@ def get_waveforms(event: int) -> np.ndarray:
     loaded_wvfms: np.ndarray = waveforms.get_waveforms(4, event)
 
     return loaded_wvfms
+
+
+def get_csw(event: int) -> np.ndarray:
+    """
+    Return the coherently summed waveform for a given
+    A4 CR event sampled at 20GSa/s.
+
+    Parameters
+    ----------
+    event: int
+        The event ID to load.
+
+    Returns
+    -------
+    waveform: np.ndarray
+        The A4 CR waveform (in mV).
+
+    Raises
+    ------
+    ValueError
+        If the event number cannot be found for ANITA4.
+    """
+
+    # load waveforms
+    csw: np.ndarray = waveforms.get_csw(4, event)
+
+    return csw

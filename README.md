@@ -3,6 +3,7 @@
 [![Actions Status](https://github.com/rprechelt/anitacosmicrays/workflows/Pytest/badge.svg)](https://github.com/rprechelt/anitacosmicrays/actions)
 ![GitHub](https://img.shields.io/github/license/rprechelt/anitacosmicrays?logoColor=brightgreen)
 ![Python](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A Python package to access reduced data products (headers and waveforms) of
 cosmic-ray and cosmic-ray-like events observed by the Antarctic Impulsive Transient Antenna.
@@ -36,8 +37,13 @@ Once `anitacosmcrays` has been installed, you can use it as follows:
     wvfms["time"]
     wvfms["09TH"]
     
-    # or the coherently summed waveforms for H-Pol and V-Pol.
-    wvfms["HPOL"]
-    wvfms["VPOL"]
+    # we can also load the coherently summed waveform (CSW)
+    # produced by ANITA's interferometric pointing algorithm.
+    csw = anita4.get_csw(19848917)
+    
+    # the respective CSW's can then be accessed with
+    csw["time"]
+    csw["HPOL"]
+    csw["VPOL"]
 
 
