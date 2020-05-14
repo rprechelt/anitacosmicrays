@@ -9,7 +9,7 @@
  *
  * Usage:
  *
- * root extactWaveforms.C [event id] [output filename] [filter=true]
+ * root extactWaveforms.C [event id] [wvfm filename] [csw filename] [filter=true]
  *
  * By default, waveforms are filtered with the standard ANITA sine sub.
  * If filter=0, then waveforms will not be filtered.
@@ -35,7 +35,9 @@
 using namespace std;
 
 auto extractWaveforms(const int event,
-                      const std::string& filename, const bool filter = true) -> void {
+                      const std::string& wvfmfilename,
+                      const std::string& cswfilename,
+                      const bool filter = true) -> void {
 
   //  Expedite processing and use sine subtract cache.
   UCorrelator::SineSubtractFilter::setUseCache(true);
@@ -89,22 +91,34 @@ auto extractWaveforms(const int event,
   // declare storage for our waveform arrays
   double Hpol[NUM_SEAVEYS][260];
   double Vpol[NUM_SEAVEYS][260];
-  double Hpol_csw[260];
-  double Vpol_csw[260];
 
-  // open the output file
-  ofstream outfile; outfile.open(filename);
+  // and for the csw
+  static constexpr int csw_length{1560};
+  double Hpol_csw[csw_length];
+  double Vpol_csw[csw_length];
+  double time_csw[csw_length];
 
-  // ANITA events are sampled at 2.6 GSa/s
-  const double dt{1./2.6};
+  // open the output file for the antenna wise waveforms
+  ofstream wvfmfile; wvfmfile.open(wvfmfilename);
 
-  // check if its good
-  if (!outfile.good()) {
-    cerr << "Unable to open '" << filename << "' for writing. Quitting...\n'";
+  // open the output file for the coherently summed waveforms
+  ofstream cswfile; cswfile.open(cswfilename);  
+
+  // check if both our files are good
+  if (!wvfmfile.good()) {
+    cerr << "Unable to open '" << wvfmfilename << "' for writing. Quitting...\n'";
   }
 
+  // check if both our files are good
+  if (!cswfile.good()) {
+    cerr << "Unable to open '" << cswfilename << "' for writing. Quitting...\n'";
+  }
+
+  // ANITA events are sampled at 2.6 GSa/s
+  const double dt{1./2.6};  
+
   // write out the first part of the header
-  outfile << "time ";
+  wvfmfile << "# time ";
 
   // and access the waveforms
   for (Int_t ant = 0; ant < NUM_SEAVEYS; ++ant) {
@@ -122,9 +136,9 @@ auto extractWaveforms(const int event,
     }
 
     // write the channel header for HPOL
-    if (phi < 9) outfile << "0" << phi+1;
-    else outfile << phi+1;
-    outfile << AnitaRing::ringAsString(ring)[0] << AnitaPol::polAsChar(AnitaPol::kHorizontal) << " ";
+    if (phi < 9) wvfmfile << "0" << phi+1;
+    else wvfmfile << phi+1;
+    wvfmfile << AnitaRing::ringAsString(ring)[0] << AnitaPol::polAsChar(AnitaPol::kHorizontal) << " ";
 
     // get the corresponding VPol raw waveform
     waveform = fevent.getFilteredGraph(ant, AnitaPol::kVertical)->even();
@@ -135,57 +149,68 @@ auto extractWaveforms(const int event,
     }
 
     // write the channel header for VPOL
-    if (phi < 9) outfile << "0" << phi+1;
-    else outfile << phi+1;
-    outfile << AnitaRing::ringAsString(ring)[0] << AnitaPol::polAsChar(AnitaPol::kVertical) << " ";
+    if (phi < 9) wvfmfile << "0" << phi+1;
+    else wvfmfile << phi+1;
+    wvfmfile << AnitaRing::ringAsString(ring)[0] << AnitaPol::polAsChar(AnitaPol::kVertical) << " ";
 
   } // END: loop over antennas
 
+  // and finish off the header line
+  wvfmfile << "\n";
+  
   // now load the HPol coherently summed waveform
   auto waveform{analyzer.getCoherent(AnitaPol::kHorizontal, 0, true)->even()};
 
-  // and save each sample in the waveform
-  for (Int_t i = 0; i < waveform->GetN(); ++i) {
+  // and save each the sample times for the CSW's
+  for (Int_t i = 0; i < std::min(csw_length, waveform->GetN()); ++i) {
+    time_csw[i] = waveform->GetX()[i];
+  }  
+
+  // and save each sample in the HPOL waveform
+  for (Int_t i = 0; i < std::min(csw_length, waveform->GetN()); ++i) {
     Hpol_csw[i] = waveform->GetY()[i];
   }
 
   // now load the HPol coherently summed waveform
   waveform = analyzer.getCoherent(AnitaPol::kVertical, 0, true)->even();
 
-  // and save each sample in the waveform
-  for (Int_t i = 0; i < waveform->GetN(); ++i) {
+  // and save each sample in the VPOL waveform
+  for (Int_t i = 0; i < std::min(csw_length, waveform->GetN()); ++i) {
     Vpol_csw[i] = waveform->GetY()[i];
   }
-
-  // and write our the rest of the header
-  outfile << "HPOL VPOL";
-
-  // and finish off the header line
-  outfile << "\n";
 
   // now that we have filled everything in, let's write it to the file
   for (Int_t i = 0; i < 260; ++i) {
 
     // write out the time for these waveforms
-    outfile << i*dt << " ";
+    wvfmfile << i*dt << " ";
 
     // and now loop over antennas
     for (Int_t ch = 0; ch < NUM_SEAVEYS; ++ch) {
 
       // write out the two waveforms
-      outfile << Hpol[ch][i] << " ";
-      outfile << Vpol[ch][i] << " ";
+      wvfmfile << Hpol[ch][i] << " ";
+      wvfmfile << Vpol[ch][i] << " ";
 
     } // END: loop over channels
 
-    // and write out the CSW samples
-    outfile << Hpol_csw[i] << " ";
-    outfile << Vpol_csw[i];
-
     // once we have written all the channels, we move forward
-    outfile << "\n";
+    wvfmfile << "\n";
 
   } // END: loop over samples
+
+  // and write out the CSW header
+  cswfile << "# time HPOL VPOL \n";  
+
+  // and write out the CSW's
+  for (Int_t i = 0; i < csw_length; ++i) {
+    
+    // and write out the CSW samples
+    cswfile << time_csw[i] << " ";
+    cswfile << Hpol_csw[i] << " ";
+    cswfile << Vpol_csw[i] << "\n";
+
+  }
 
   // and we are done
   return;

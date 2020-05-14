@@ -43,7 +43,7 @@ mkdir -p ../data/a4waveforms/
 
 # loop over all the events that need filtering
 for ev in "${needfilter[@]}"; do
-    root -b -x -q "extractWaveforms.C(${ev}, \"../data/a4waveforms/event${ev}.waveform\", 1)"
+    root -b -x -q "extractWaveforms.C(${ev}, \"../data/a4waveforms/event${ev}.waveform\", \"../data/a4waveforms/csw${ev}.waveform\", 1)"
 done
 
 # the events that shouldn't be filtered
@@ -53,5 +53,5 @@ nofilter=(
 
 # loop over all the events that need filtering
 for ev in "${nofilter[@]}"; do
-    root -b -x -q "extractWaveforms.C(${ev}, \"../data/a4waveforms/event${ev}.waveform\", 0)"
+    root -b -x -q "extractWaveforms.C(${ev}, \"../data/a4waveforms/event${ev}.waveform\", \"../data/a4waveforms/csw${ev}.waveform\", 0)"
 done
