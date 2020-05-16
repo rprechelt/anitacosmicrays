@@ -2,12 +2,14 @@
 This file provides the event parameters for all cosmic ray and cosmic-ray
 like events observed by ANITA4.
 """
-from os.path import join, dirname
+from os.path import dirname, join
+
 import numpy as np
 from cachetools import cached
+
 from . import waveforms
 
-__all__ = ["get_events", "get_waveforms"]
+__all__ = ["get_events", "get_waveforms", "get_csw"]
 
 # the location of the events files
 DATA_DIR = join(dirname(dirname(__file__)), "data")
