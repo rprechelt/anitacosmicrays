@@ -1,6 +1,6 @@
 import pytest
-import anitacosmicrays.anita4 as anita4
 
+import anitacosmicrays.anita4 as anita4
 
 # all anita 4 events
 A4EVENTS = [
@@ -84,9 +84,12 @@ def test_get_waveforms():
                 for pol in ["H", "V"]:
                     waveform[f"{phi:02}{ring}{pol}"]
 
+        # get the csw
+        csw = anita4.get_csw(ev)
+
         # and check that the HPOL and VPOL CSW's are there
-        waveform["HPOL"]
-        waveform["VPOL"]
+        csw["HPOL"]
+        csw["VPOL"]
 
 
 def test_get_nonexistent_waveform():
