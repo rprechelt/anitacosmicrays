@@ -2,6 +2,7 @@
 This file provides functions for loading waveforms from ANITA cosmic ray events.
 """
 import os.path as path
+
 import numpy as np
 from cachetools import cached
 
