@@ -7,4 +7,4 @@ __version__ = "0.0.1"
 
 from . import anita4  # noqa: F401
 from .events import get_events  # noqa: F401
-from .waveforms import get_waveforms  # noqa: F401
+from .waveforms import get_waveforms, get_csw  # noqa: F401
