@@ -20,4 +20,4 @@ def get_events(flight: int) -> np.ndarray:
     if flight == 4:
         return anita4.get_events()
     else:
-        raise ValueError(f"We currently only support ANITA-4")
+        raise ValueError("We currently only support ANITA-4")
