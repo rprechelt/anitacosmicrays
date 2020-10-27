@@ -46,7 +46,11 @@ auto extractWaveforms(const int event,
   UCorrelator::AnalysisConfig cfg;
 
   // I don't want any deconvolution
-  cfg.response_option = UCorrelator::AnalysisConfig::ResponseNone;
+  // cfg.response_option = UCorrelator::AnalysisConfig::ResponseNone;
+  cfg.response_option = UCorrelator::AnalysisConfig::ResponseA4;
+
+  // and perform allpass (dedispersion) deconvolution
+  cfg.deconvolution_method = new AnitaResponse::AllPassDeconvolution;
 
   //  Set up Analyzer object with filtering.
   //  "true" is set so "analyzer" doesn't reset each time when drawing.
