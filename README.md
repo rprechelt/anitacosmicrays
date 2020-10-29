@@ -8,6 +8,8 @@
 An official archive of cosmic-ray and cosmic-ray-like events observed by the
 Antarctic Impulsive Transient Antenna.
 
+#### Events
+
 This repository contains tables of event properties as well as ASCII data files
 containing individual waveforms for each event. In particular, the following
 waveform types are available:
@@ -17,7 +19,35 @@ waveform types are available:
      antenna-wise interferometric delay-and-sum for the peak direction in the
      interferometric map.
   3. The deconvolved coherently summed waveform that has had the impulse response 
-  
+
+#### Responses
+
+We also provide the time-domain impulse response for each channel. Channels are
+identified by their phi sector (1 to 16 azimuthally around the payload), their
+ring (T = Top, M = Middle, B = Bottom), and their polarization (H = Horizontal
+or V = Vertical). For example, 03TH is the horizontal polarization of the top
+antenna in the third phi sector.
+
+##### TUFFS
+
+ANITA-4 used tunable notch filters on each channel to reduce the effects of
+continuous-waveform interference. These filters were operated in various
+configurations throughout the flight (so different events were observed with
+different responses).
+
+Each configuration is identified using the three center frequencies of the notch
+separated by underscores where a frequency of `0` indicates that the notch was
+disabled. For example, `260_0_0` had one notch at 260 MHz and the other two
+notches disabled. `260_375_460` had notches at 260 MHz, 375 MHz, and 460 MHz.
+
+The configurations used in ANITA-4 were:
+
+ - `260_0_0`
+ - `260_365_0`
+ - `260_375_0`
+ - `260_385_0`
+ - `260_0_460`
+ - `260_375_460`
 
 ### Accessing the data
 
@@ -77,4 +107,18 @@ Once `anitacosmcrays` has been installed, you can use it as follows:
     csw["HPOL"]  # the horizontal polarization signal at the digitizer
     csw["VPOL"]  # the vertical polarization signal at the digitizer
 
+    # the `get_response` function can be used to individual channel responses
+    # the first argument is the flight (currently only ANITA-4)
+    response = anitacosmicrays.get_response(4, "01TH", config="260_0_0")
+    
+    # we also provide the average impulse response for each polarization
+    # and for the whole payload
+    
+    # load the whole payload (both-polarization average)
+    response = anitacosmicrays.get_response(4, "average", config="260_0_0")
+    
+    # or load the H-pol and V-pol averages
+    response = anitacosmicrays.get_response(4, "average", config="260_0_0", pol="H")
+    response = anitacosmicrays.get_response(4, "average", config="260_0_0", pol="V")
+    
 
