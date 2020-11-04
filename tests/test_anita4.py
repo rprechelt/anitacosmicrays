@@ -78,6 +78,11 @@ def test_get_waveforms():
         # check that time is present
         waveform["time"]
 
+        # check that I can load the deconvolved waveform
+        deconvolved = anita4.get_deconvolved(ev)
+        deconvolved["time"]
+        deconvolved["field"]
+
         # and check that all the channels are present
         for phi in range(1, 17):
             for ring in ["T", "M", "B"]:

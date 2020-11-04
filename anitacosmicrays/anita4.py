@@ -101,3 +101,26 @@ def get_csw(event: int) -> np.ndarray:
     csw: np.ndarray = waveforms.get_csw(4, event)
 
     return csw
+
+
+def get_deconvolved(event: int) -> np.ndarray:
+    """
+    Return the deconvolved electric field waveform for a given
+    A4 CR event.
+
+    Parameters
+    ----------
+    event: int
+        The event ID to load.
+
+    Returns
+    -------
+    waveform: np.ndarray
+        The A4 electric field waveform (in mV/m).
+
+    Raises
+    ------
+    ValueError
+        If the event number cannot be found for ANITA4.
+    """
+    return waveforms.get_deconvolved(4, event)

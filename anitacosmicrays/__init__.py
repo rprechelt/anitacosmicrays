@@ -8,7 +8,7 @@ __version__ = "0.0.2"
 from . import anita4
 from .events import get_event, get_events
 from .responses import get_response
-from .waveforms import get_csw, get_waveforms
+from .waveforms import get_csw, get_deconvolved, get_waveforms
 
 __all__ = [
     "anita4",
@@ -17,4 +17,5 @@ __all__ = [
     "get_waveforms",
     "get_csw",
     "get_response",
+    "get_deconvolved",
 ]

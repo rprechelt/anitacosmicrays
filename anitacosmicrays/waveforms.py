@@ -85,3 +85,43 @@ def get_csw(flight: int, event: int) -> np.ndarray:
 
     # and return the resampled waveform
     return waveforms
+
+
+@cached(cache={})
+def get_deconvolved(flight: int, event: int) -> np.ndarray:
+    """
+    Return the deconvolved electric field waveform for a given
+    ANITA CR event.
+
+    Parameters
+    ----------
+    event: int
+        The event ID to load.
+
+    Returns
+    -------
+    waveform: np.ndarray
+        The ANITA CR electric field waveform (in mV/m).
+
+    Raises
+    ------
+    ValueError
+        If the event number cannot be found for the requested flight.
+    """
+
+    # construct the filename
+    filename: str = path.join(
+        WVFM_DIR, *(f"a{flight}waveforms", f"deconvolved{event}.waveform")
+    )
+
+    # check that the file exists
+    if not path.exists(filename):
+        raise ValueError(
+            f"{event} deconvolved electric field was not found for ANITA{flight}."
+        )
+
+    # load the waveform
+    waveforms: np.ndarray = np.genfromtxt(filename, names=["time", "field"])
+
+    # and return the resampled waveform
+    return waveforms
