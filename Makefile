@@ -22,6 +22,6 @@ mypy:
 	python -m mypy anitacosmicrays
 
 isort:
-	python -m isort --atomic -rc anitacosmicrays tests
+	python -m isort --atomic anitacosmicrays tests
 
 # end
