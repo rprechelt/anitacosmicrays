@@ -1,14 +1,14 @@
 # anitacosmicrays
 
 [![Actions Status](https://github.com/AnitaNeutrino/anitacosmicrays/workflows/Pytest/badge.svg)](https://github.com/AnitaNeutrino/anitacosmicrays/actions)
-![GitHub](https://img.shields.io/github/license/AnitaNeutrino/anitacosmicrays?logoColor=brightgreen)
+![GitHub](https://img.shields.io/github/license/anitaNeutrino/anitacosmicrays?logoColor=brightgreen)
 ![Python](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 An official archive of cosmic-ray and cosmic-ray-like events observed by the
 Antarctic Impulsive Transient Antenna.
 
-Please contant Remy Prechelt (`prechelt` 'at' `hawaii.edu`) if you have issues
+Please contact Remy Prechelt (`prechelt` 'at' `hawaii.edu`) if you have issues
 or questions about this archive.
 
 #### Events
