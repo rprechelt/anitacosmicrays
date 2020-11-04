@@ -68,7 +68,7 @@ Python section (below) for documentation of this API.
 
 This package can be directly installed from Github with `pip` (assuming a user-space install)
 
-    pip install --user git+git://github.com/rprechelt/anitacosmicrays.git#egg=anitacosmicrays.
+    pip install --user git+git://github.com/rprechelt/anitacosmicrays.git#egg=anitacosmicrays
     
 This package is Python 3.x only and is regularly tested on Python 3.6/3.7/3.8.
 

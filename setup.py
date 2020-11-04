@@ -2,7 +2,7 @@ from os import path
 from setuptools import setup, find_packages
 
 # the anitacosmicrays version
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 # get the absolute path of this project
 here = path.abspath(path.dirname(__file__))

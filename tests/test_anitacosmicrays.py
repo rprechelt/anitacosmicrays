@@ -5,4 +5,4 @@ def test_anitacosmicrays_version():
     """
     Check the anitacosmicrays version.
     """
-    assert anitacosmicrays.__version__ == "0.0.2"
+    assert anitacosmicrays.__version__ == "0.0.3"

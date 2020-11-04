@@ -1,2 +1,4 @@
 include README.md LICENSE
 recursive-include anitacosmicrays *
+recursive-include data *
+recursive-include macros *
