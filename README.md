@@ -8,6 +8,9 @@
 An official archive of cosmic-ray and cosmic-ray-like events observed by the
 Antarctic Impulsive Transient Antenna.
 
+Please contant Remy Prechelt (`prechelt` 'at' `hawaii.edu`) if you have issues
+or questions about this archive.
+
 #### Events
 
 This repository contains tables of event properties as well as ASCII data files
