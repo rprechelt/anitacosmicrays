@@ -14,11 +14,11 @@ This repository contains tables of event properties as well as ASCII data files
 containing individual waveforms for each event. In particular, the following
 waveform types are available:
 
-  1. Raw (unprocessed) waveforms for each antenna on the payload.
+  1. Raw (unprocessed) waveforms for each antenna on the payload for each CR event.
   2. Filtered coherently summed waveform (CSW). This is produced using an
      antenna-wise interferometric delay-and-sum for the peak direction in the
      interferometric map.
-  3. The deconvolved coherently summed waveform that has had the impulse response 
+  3. The deconvolved electric field at the payload in mV/m.
 
 #### Responses
 
@@ -107,7 +107,17 @@ Once `anitacosmcrays` has been installed, you can use it as follows:
     csw["HPOL"]  # the horizontal polarization signal at the digitizer
     csw["VPOL"]  # the vertical polarization signal at the digitizer
 
-    # the `get_response` function can be used to individual channel responses
+    # we also provide the deconvolved electric fields via the `get_deconvolved` function.
+    deconvolved = anitacosmicrays.get_deconvolved(4, 19848917)
+    deconvolved["time"] # the sample times in ns
+    deconvolved["field"] # the electric field in mv/m
+    
+    # if you want to exclusively work with a single payload, you can access these
+    # functions specific for a given payload via the `anitaX` module i.e.
+    csw = anitacosmicrays.anita4.get_csw(19848917)
+    deconvolved = anitacosmicrays.anita4.get_deconvolved(19848917)
+
+    # the `get_response` function can be used to get individual channel responses
     # the first argument is the flight (currently only ANITA-4)
     response = anitacosmicrays.get_response(4, "01TH", config="260_0_0")
     
