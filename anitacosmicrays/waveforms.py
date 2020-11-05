@@ -34,9 +34,7 @@ def get_waveforms(flight: int, event: int) -> np.ndarray:
     """
 
     # construct the filename
-    filename: str = path.join(
-        WVFM_DIR, *(f"a{flight}waveforms", f"event{event}.waveform")
-    )
+    filename: str = path.join(WVFM_DIR, *(f"anita{flight}", f"event{event}.waveform"))
 
     # check that the file exists
     if not path.exists(filename):
@@ -72,9 +70,7 @@ def get_csw(flight: int, event: int) -> np.ndarray:
     """
 
     # construct the filename
-    filename: str = path.join(
-        WVFM_DIR, *(f"a{flight}waveforms", f"csw{event}.waveform")
-    )
+    filename: str = path.join(WVFM_DIR, *(f"anita{flight}", f"csw{event}.waveform"))
 
     # check that the file exists
     if not path.exists(filename):
@@ -111,7 +107,7 @@ def get_deconvolved(flight: int, event: int) -> np.ndarray:
 
     # construct the filename
     filename: str = path.join(
-        WVFM_DIR, *(f"a{flight}waveforms", f"deconvolved{event}.waveform")
+        WVFM_DIR, *(f"anita{flight}", f"deconvolved{event}.waveform")
     )
 
     # check that the file exists

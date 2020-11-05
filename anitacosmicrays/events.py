@@ -3,7 +3,7 @@ Load the properties of given ANITA events.
 """
 import numpy as np
 
-from . import anita4
+from . import anita1, anita3, anita4
 
 __all__ = ["get_event", "get_events"]
 
@@ -52,5 +52,9 @@ def get_events(flight: int) -> np.ndarray:
 
     if flight == 4:
         return anita4.get_events()
+    elif flight == 3:
+        return anita3.get_events()
+    elif flight == 1:
+        return anita1.get_events()
     else:
-        raise ValueError("We currently only support ANITA-4")
+        raise ValueError("We currently only support ANITA-1,3,4")

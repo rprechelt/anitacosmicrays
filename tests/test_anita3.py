@@ -42,7 +42,6 @@ def test_get_events():
 
     # and access all the properties of the events
     events["id"]
-    events["date"]
     events["time"]
     events["event_lat"]
     events["event_lon"]
@@ -52,3 +51,17 @@ def test_get_events():
     events["elevation"]
     events["azimuth"]
     events["polarity"]
+
+
+def test_get_waveforms():
+    """
+    Test that we can load the waveforms for every event.
+    """
+
+    # and check that we have loaded ALL events
+    for ev in A3EVENTS:
+
+        # check that I can load the deconvolved waveform
+        deconvolved = anita3.get_deconvolved(ev)
+        deconvolved["time"]
+        deconvolved["field"]

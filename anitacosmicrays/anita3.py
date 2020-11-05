@@ -7,7 +7,9 @@ from os.path import dirname, join
 import numpy as np
 from cachetools import cached
 
-__all__ = ["get_events"]
+from . import waveforms
+
+__all__ = ["get_events", "get_deconvolved"]
 
 # the location of the events files
 DATA_DIR = join(dirname(dirname(__file__)), "data")
@@ -30,8 +32,7 @@ def get_events() -> np.ndarray:
         delimiter=",",
         dtype=[
             ("id", int),
-            ("date", "S20"),
-            ("time", "S20"),
+            ("time", int),
             ("event_lat", float),
             ("event_lon", float),
             ("event_alt", float),
@@ -46,3 +47,26 @@ def get_events() -> np.ndarray:
 
     # and return the loaded events
     return events
+
+
+def get_deconvolved(event: int) -> np.ndarray:
+    """
+    Return the deconvolved electric field waveform for a given
+    A3 CR event.
+
+    Parameters
+    ----------
+    event: int
+        The event ID to load.
+
+    Returns
+    -------
+    waveform: np.ndarray
+        The A3 electric field waveform (in mV/m).
+
+    Raises
+    ------
+    ValueError
+        If the event number cannot be found for ANITA4.
+    """
+    return waveforms.get_deconvolved(3, event)
