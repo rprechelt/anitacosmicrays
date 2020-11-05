@@ -11,11 +11,17 @@ Antarctic Impulsive Transient Antenna.
 Please contact Remy Prechelt (`prechelt` 'at' `hawaii.edu`) if you have issues
 or questions about this archive.
 
+If you use any of the ANITA-4 results in a publication, please cite the ANITA-4
+cosmic ray [paper](https://arxiv.org/abs/2008.05690). If you use any of the
+ANITA-1 results, please cite the ANITA-1 cosmic ray
+[paper](https://www.sciencedirect.com/science/article/abs/pii/S0927650516000025?via%3Dihub).
+
 #### Events
 
 This repository contains tables of event properties as well as ASCII data files
 containing individual waveforms for each event. In particular, the following
-waveform types are available:
+waveform types are available (although they are not all available for every
+flight):
 
   1. Raw (unprocessed) waveforms for each antenna on the payload for each CR event.
   2. Filtered coherently summed waveform (CSW). This is produced using an
